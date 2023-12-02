@@ -1,18 +1,46 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  Outlet,
+  createBrowserRouter,
+  RouterProvider,
+  Link,
+} from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import NotFound from './components/NotFound/NotFound';
 
-function App() {
-  // const [count, setCount] = useState(0)
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'about',
+        element: <About />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+    ],
+  },
+]);
 
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
-  )
+export default function App() {
+  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
 }
 
-export default App
+function Layout() {
+  return (
+    <>
+      <div className="flex gap-2 flex-row">
+        <Link to="/">Home</Link>
+        <Link to="/About">About</Link>
+      </div>
+      <Outlet />
+    </>
+  );
+}
