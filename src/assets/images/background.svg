@@ -1,0 +1,36 @@
+<svg width="1440" height="530" viewBox="0 154 1440 530" fill="none"
+	xmlns="http://www.w3.org/2000/svg">
+	<mask id="mask0_2313_47391" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-536" y="-60"
+		width="2363" height="744">
+		<ellipse cx="645.806" cy="312" rx="1181.19" ry="372" fill="#D9D9D9" />
+	</mask>
+	<g mask="url(#mask0_2313_47391)">
+		<path d="M0 726H1440V154H0V726Z" fill="url(#paint0_linear_2313_47391)" />
+		<g style="mix-blend-mode:hard-light" opacity="0.801642">
+			<path fill-rule="evenodd" clip-rule="evenodd"
+				d="M1280.1 641.892C1156.56 515.315 1192.1 366.361 1359.48 309.196L1751.98 175.146L1843.47 268.883C1967.01 395.461 1931.47 544.415 1764.09 601.58L1371.59 735.63L1280.1 641.892Z"
+				fill="#12CF9F" />
+		</g>
+		<g style="mix-blend-mode:hard-light" opacity="0.747652">
+			<path fill-rule="evenodd" clip-rule="evenodd"
+				d="M1298.36 838.372C1152.94 788.704 1122.06 659.285 1229.39 549.308L1504.97 266.953L1743.04 348.26C1888.47 397.929 1919.34 527.347 1812.01 637.324L1536.43 919.679L1298.36 838.372Z"
+				fill="#AE77D4" />
+		</g>
+		<path opacity="0.9" fill-rule="evenodd" clip-rule="evenodd"
+			d="M77.7793 516.254C222.58 567.722 251.189 696.846 141.678 804.659L-291.63 1231.25L-676.67 1094.4C-821.471 1042.93 -850.08 913.804 -740.569 805.991L-307.261 379.396L77.7793 516.254Z"
+			fill="#FF9F00" />
+		<g style="mix-blend-mode:hard-light" opacity="0.747652">
+			<path fill-rule="evenodd" clip-rule="evenodd"
+				d="M-520.733 768.071C-652.999 689.828 -652.999 562.972 -520.733 484.73L-84.6973 226.793L91.3691 330.945C223.636 409.188 223.636 536.044 91.3692 614.286L-344.666 872.223L-520.733 768.071Z"
+				fill="#F7B39C" />
+		</g>
+	</g>
+	<defs>
+		<linearGradient id="paint0_linear_2313_47391" x1="256.901" y1="217.907" x2="543.512"
+			y2="-453.044" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#10174A" />
+			<stop offset="1" stop-color="#729FD4" />
+			<stop offset="1" stop-color="#729FD4" />
+		</linearGradient>
+	</defs>
+</svg>
