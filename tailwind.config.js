@@ -8,9 +8,30 @@ export default {
 		fontFamily: {
 			sans: ['Proxima Nova', 'sans-serif'],
 		},
+		fontSize: {
+			sm: ['12px', '16px'], // caption
+			base: ['14px', '21px'], // body
+			lg: ['16px', '24px'], // h3
+			xl: ['18px', '24px'], // h2
+			'2xl': ['22px', '32px'], // h1
+			'3xl': ['26px', '36px'], // Display 3
+			'4xl': ['40px', '60px'], // Display 2
+			'5xl': ['50px', '60px'], // Display 1
+		},
 		screens: {
 			xs: '475px',
-			...defaultTheme,
+			...defaultTheme.screens,
+		},
+		container: {
+			center: true,
+			padding: {
+				DEFAULT: '2rem',
+				sm: '2rem',
+				md: '2rem',
+				lg: '2rem',
+				xl: '6rem',
+				'2xl': '9rem',
+			},
 		},
 		colors: {
 			cyan: {
