@@ -29,6 +29,14 @@ const pwaOptions: Partial<VitePWAOptions> = {
         purpose: 'any maskable',
       },
     ],
+    start_url: "/index.html",
+    scope: ".",
+    display: "standalone",
+    orientation: "portrait-primary",
+    background_color: "#fff",
+    description: "Kris+ merchant portal",
+    dir: "ltr",
+    lang: "en-US"
   },
   devOptions: {
     enabled: true,
