@@ -3,9 +3,9 @@ import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/Navbar';
-// import { getToken, onMessage } from 'firebase/messaging';
-// import { db, messaging } from './firebase/firebase';
-// import { doc, setDoc } from 'firebase/firestore';
+import { getToken, onMessage } from 'firebase/messaging';
+import { db, messaging } from './firebase/firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 const router = createBrowserRouter([
 	{
@@ -45,44 +45,35 @@ export default function App() {
 		return swRegistration;
 	};
 
-	// const { VITE_APP_VAPID_KEY } = import.meta.env;
+	const { VITE_APP_VAPID_KEY } = import.meta.env;
 	const requestNotificationPermission = async () => {
-		const permission = await window.Notification.requestPermission();
-		// value of permission can be 'granted', 'default', 'denied'
-		// granted: user has accepted the request
-		// default: user has dismissed the notification permission popup by clicking on x
-		// denied: user has denied the request.
-		if (permission !== "granted") {
-		  throw new Error("Permission not granted for Notification");
-		}
-
 		//requesting permission using Notification API
-		// const permission = await Notification.requestPermission();
+		const permission = await Notification.requestPermission();
 
-		// if (permission === 'granted') {
-		// 	console.log('granted');
-		// 	const token = await getToken(messaging, {
-		// 		vapidKey: VITE_APP_VAPID_KEY,
-		// 	});
-		// 	console.log('Token generated : ', token);
-		// 	// add token to db
-		// 	await setDoc(doc(db, 'tokens', token), {});
-		// } else if (permission === 'denied') {
-		// 	//notifications are blocked
-		// 	alert('You denied for the notification');
-		// }
+		if (permission === 'granted') {
+			console.log('granted');
+			const token = await getToken(messaging, {
+				vapidKey: VITE_APP_VAPID_KEY,
+			});
+			console.log('Token generated : ', token);
+			// add token to db
+			await setDoc(doc(db, 'tokens', token), {});
+		} else if (permission === 'denied') {
+			//notifications are blocked
+			alert('You denied for the notification');
+		}
 	};
 
 	async function main() {
 		checkServiceWorker();
 		const sw = await registerServiceWorker();
 		await requestNotificationPermission();
-		// onMessage(messaging, (payload) => {
-		// 	console.log('Message received. ', payload);
-		// 	sw.showNotification(payload.notification?.title ?? "Title", {
-		// 		body: payload.notification?.body ?? "Body",
-		// 	});
-		// });
+		onMessage(messaging, (payload) => {
+			console.log('Message received. ', payload);
+			sw.showNotification(payload.notification?.title ?? "Title", {
+				body: payload.notification?.body ?? "Body",
+			});
+		});
 	}
 
 	main();
