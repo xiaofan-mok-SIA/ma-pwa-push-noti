@@ -40,7 +40,7 @@ export default function App() {
 	};
 
 	const registerServiceWorker = async () => {
-		const swRegistration = await navigator.serviceWorker.register('service-worker.js');
+		const swRegistration = await navigator.serviceWorker.register('firebase-messaging-sw.js');
 		console.log('sw registered');
 		return swRegistration;
 	};
