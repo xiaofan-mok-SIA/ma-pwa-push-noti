@@ -13,7 +13,7 @@ export default function Shortcut() {
 	return (
 		<div className='md:hidden flex items-center justify-center p-4 gap-4'>
 			{shortcutList.map((shortcut) => (
-				<div className='flex flex-col items-center'>
+				<div className='flex flex-col items-center' key={shortcut.name}>
 					<button className='btn-shortcut rounded-full mb-2 p-[12px] w-[60px] h-[60px] flex justify-center items-center bg-white border-none shadow-[0_4px_10px_0px_rgba(0,0,0,0.2)]'>
 						<img src={shortcut.src} alt={shortcut.name} />
 					</button>

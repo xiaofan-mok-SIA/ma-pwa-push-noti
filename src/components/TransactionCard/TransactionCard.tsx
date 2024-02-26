@@ -41,7 +41,7 @@ export default function TransactionCard({ transaction, isFirst }: Props) {
 				<div className='text-lg font-semibold pb-[8px]'>{transaction.transactions.length} Transactions</div>
 				<hr className='border-dashed' />
 				{transaction.transactions.map((t) => (
-					<div>
+					<div key={t.createdAt}>
 						<div className='py-4'>
 							<div className='flex gap-2'>
 								<div className='grow text-xl font-semibold truncate'>{t._id}</div>
