@@ -7,6 +7,7 @@ import TransactionCard from '../../components/TransactionCard';
 import { Transactions } from '../../interfaces/Transaction';
 import Banner from '../../components/Banner';
 import Shortcut from './components/Shortcut';
+import { getTransactions, sendNotification } from '../../services/api';
 
 export default function Home() {
 	const [transactions, setTransactions] = useState<Transactions[]>([]);
@@ -14,10 +15,17 @@ export default function Home() {
 
 	const tabs = ['Payments', 'Redemptions'];
 
+	const sendNotifications = () => {
+		return async () => {
+			await sendNotification();
+		};
+	}
+
 	useEffect(() => {
 		const fetchTransactions = async () => {
-			const response = await fetch('./transactions.json');
-			const transactions = (await response.json()).data as Transactions[];
+			// const response = await fetch('./transactions.json');
+			// const transactions = (await response.json()).data as Transactions[];
+			const transactions = await getTransactions() ?? [];
 			setTransactions(transactions);
 		};
 
@@ -25,10 +33,13 @@ export default function Home() {
 
 		return () => {};
 	}, []);
+
+
 	return (
 		<div>
 			<Banner />
 			<Shortcut />
+			<button onClick={sendNotifications()}>Send Notifications</button>
 			<div className='relative'>
 				<img src={backgroundMobile} alt='Background' className='sm:hidden absolute top-0 w-full z-[-1]' />
 				<img src={backgroundTablet} alt='Background' className='hidden sm:block lg:hidden absolute top-0 w-full' />
@@ -40,7 +51,8 @@ export default function Home() {
 								className={`uppercase cursor-pointer pb-2 font-semibold ${
 									selectedTab === tab ? 'text-white border-b-[5px] border-b-cyan' : 'text-grey-light'
 								}`}
-								onClick={() => setSelectedTab(tab)}>
+								onClick={() => setSelectedTab(tab)}
+								key={tab}>
 								{tab}
 							</div>
 						))}
