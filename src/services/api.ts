@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { Transactions } from '../interfaces/Transaction';
 
+const { VITE_SERVER_URL } = import.meta.env;
+
 export async function getTransactions(): Promise<Transactions[] | null> {
 	try {
-		const response = await axios.get('http://localhost:8082/transactions');
+		const response = await axios.get(`${VITE_SERVER_URL}/transactions`);
 		// console.log(response);
 		return response.data.data as Transactions[];
 	} catch (error) {
@@ -14,7 +16,7 @@ export async function getTransactions(): Promise<Transactions[] | null> {
 
 export async function sendNotification(): Promise<void> {
 	try {
-		const response = await axios.get('http://localhost:8082/send-notification');
+		const response = await axios.get(`${VITE_SERVER_URL}/send-notification`);
 		console.log(response);
 	} catch (error) {
 		console.error('Error calling sendNotification:', error);

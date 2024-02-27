@@ -52,6 +52,7 @@ export default function App() {
 
 		if (permission === 'granted') {
 			console.log('granted');
+			console.log('vapidkey: ', VITE_APP_VAPID_KEY)
 			const token = await getToken(messaging, {
 				vapidKey: VITE_APP_VAPID_KEY,
 			});
