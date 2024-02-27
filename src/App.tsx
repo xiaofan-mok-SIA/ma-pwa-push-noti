@@ -3,9 +3,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/Navbar';
-import { getToken, onMessage } from 'firebase/messaging';
-import { db, messaging } from './firebase/firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { onMessage } from 'firebase/messaging';
+import { messaging } from './firebase/firebase';
 
 const router = createBrowserRouter([
 	{
@@ -45,30 +44,9 @@ export default function App() {
 		return swRegistration;
 	};
 
-	const { VITE_APP_VAPID_KEY } = import.meta.env;
-	const requestNotificationPermission = async () => {
-		//requesting permission using Notification API
-		const permission = await Notification.requestPermission();
-
-		if (permission === 'granted') {
-			console.log('granted');
-			console.log('vapidkey: ', VITE_APP_VAPID_KEY)
-			const token = await getToken(messaging, {
-				vapidKey: VITE_APP_VAPID_KEY,
-			});
-			console.log('Token generated : ', token);
-			// add token to db
-			await setDoc(doc(db, 'tokens', token), {});
-		} else if (permission === 'denied') {
-			//notifications are blocked
-			alert('You denied for the notification');
-		}
-	};
-
 	async function main() {
 		checkServiceWorker();
 		const sw = await registerServiceWorker();
-		await requestNotificationPermission();
 		onMessage(messaging, (payload) => {
 			console.log('Message received. ', payload);
 			sw.showNotification(payload.notification?.title ?? "Title", {
