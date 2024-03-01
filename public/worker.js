@@ -7,7 +7,7 @@ self.addEventListener("activate", async (e) => {
 });
 
 self.addEventListener("push", (event) => {
-    console('Push Received...')
+    console.log('Push Received...')
     if (!(self.Notification && self.Notification.permission === "granted")) {
         return;
     }
