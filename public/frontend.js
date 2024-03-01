@@ -44,7 +44,7 @@ async function subscribeToPushMessages() {
         console.log("Subscription created...");
         // Send subscription to server (you need to implement this part)
         console.log('Registering subscription...')
-        await fetch('http://localhost:3000/register', {
+        await fetch('https://ma-pwa-server.onrender.com/register', {
             method: 'POST',
             body: JSON.stringify(pushSubscription),
             headers: {
