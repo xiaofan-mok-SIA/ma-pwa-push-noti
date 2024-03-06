@@ -3,16 +3,17 @@
 if ("serviceWorker" in navigator) {
     send().catch((err) => console.error(err));
 }
-const publicVapidKey = 'BLr7fy-46JeShFDC1PRHsGKhTyI7M5zwyC5ITzxEcz-g6BNyNY6jKYqH6lSMrRPaHnNZoICcXCGt3kNMIDuHgsU';
+const publicVapidKey = 'BAVKjxXcqPa8ISVRKifwDnImvkH-AQwOP6EmvU6q-M25zOzFm7xguo9YZ7CeC6MyT8AUaaW2pb1B65nDWSgv7lw';
 
 // Register SW, Register Push, Send Push
 async function send() {
     // Register Service Worker
     console.log("Registering service worker...");
-    navigator.serviceWorker.register("./worker.js")
+    await navigator.serviceWorker.register("./worker.js")
 
-    Notification.requestPermission().then((permission) => {
+    await window.Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
+            console.log("notifications granted")
             // get service worker                     
             navigator.serviceWorker.ready.then(async (sw) => {
                 subscribeToPushMessages();
@@ -41,10 +42,11 @@ async function subscribeToPushMessages() {
             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
         });
         // Send Push Notification
-        console.log("Subscription created...");
+        console.log("Subscription created...", JSON.stringify(pushSubscription));
         // Send subscription to server (you need to implement this part)
         console.log('Registering subscription...')
-        await fetch('https://ma-pwa-server.onrender.com/register', {
+        await fetch('https://tame-plum-octopus-vest.cyclic.app/register', {
+        // await fetch('https://ma-pwa-server.onrender.com/register', {
             method: 'POST',
             body: JSON.stringify(pushSubscription),
             headers: {
