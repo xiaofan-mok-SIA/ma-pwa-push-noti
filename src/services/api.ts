@@ -23,3 +23,19 @@ export async function sendNotification(): Promise<void> {
 	}
 }
 
+export async function saveSubscription(subscription: any): Promise<any> {
+	try {
+		const response = await axios.post(`${VITE_SERVER_URL}/save-subscription`, {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(subscription),
+		});
+		console.log(response);
+		return response;
+	} catch (error) {
+		console.error('Error calling sendNotification:', error);
+	}
+}
+

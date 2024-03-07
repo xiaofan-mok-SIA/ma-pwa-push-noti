@@ -3,8 +3,6 @@ import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/Navbar';
-import { onMessage } from 'firebase/messaging';
-import { messaging } from './firebase/firebase';
 
 const router = createBrowserRouter([
 	{
@@ -28,35 +26,6 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-	const checkServiceWorker = () => {
-		if (!('serviceWorker' in navigator)) {
-			throw new Error('No Service Worker support!');
-		}
-		if (!('PushManager' in window)) {
-			console.warn("Push messaging isn't supported.");
-			return;
-		}
-	};
-
-	const registerServiceWorker = async () => {
-		const swRegistration = await navigator.serviceWorker.register('firebase-messaging-sw.js');
-		console.log('sw registered');
-		return swRegistration;
-	};
-
-	async function main() {
-		checkServiceWorker();
-		const sw = await registerServiceWorker();
-		onMessage(messaging, (payload) => {
-			console.log('Message received. ', payload);
-			sw.showNotification(payload.notification?.title ?? "Title", {
-				body: payload.notification?.body ?? "Body",
-			});
-		});
-	}
-
-	main();
-
 	return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
 }
 
