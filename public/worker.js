@@ -13,20 +13,15 @@ self.addEventListener("push", (event) => {
 	}
 
 	const data = event.data?.text() ?? {};
-	const title = data.title || "Something Has Happened";
-	const message = data.message || "Here's something you might want to check out.";
-	// const icon = "images/new-notification.png";
+	console.log("data:", data);
+	const title = data.title || "Kris+ Merchant App";
+	const message = data || "Here's something you might want to check out.";
 
-	// const notification = new self.Notification(title, {
-	// 	body: message,
-	// 	tag: "simple-push-demo-notification",
-	// 	icon
-	// });
 	const options = {
-		body: message,
+		body: message
 		// here you can add more properties like icon, image, vibrate, etc.
-	  }
-	self.registration.showNotification(title, options)
+	};
+	self.registration.showNotification(title, options);
 
 	// notification.addEventListener("click", () => {
 	// 	clients.openWindow("https://example.blog.com/2015/03/04/something-new.html");

@@ -1,9 +1,9 @@
 // Generate VAPID keys (public and private)
 // Check for service worker
-if ("serviceWorker" in navigator) {
-    send().catch((err) => console.error(err));
-}
-const publicVapidKey = 'BAVKjxXcqPa8ISVRKifwDnImvkH-AQwOP6EmvU6q-M25zOzFm7xguo9YZ7CeC6MyT8AUaaW2pb1B65nDWSgv7lw';
+// if ("serviceWorker" in navigator) {
+//     send().catch((err) => console.error(err));
+// }
+const publicVapidKey = 'BIYcaOrUnVcVMP-Pk138zIYjlncZBEB4zizCiHwgoy10np1t8XWomiHefFSGQyLikd83zIIlR4Q_9lDo5nIyLKw';
 
 // Register SW, Register Push, Send Push
 async function send() {
@@ -45,6 +45,7 @@ async function subscribeToPushMessages() {
         console.log("Subscription created...", JSON.stringify(pushSubscription));
         // Send subscription to server (you need to implement this part)
         console.log('Registering subscription...')
+        // await fetch('http://localhost:3000/register', {
         await fetch('https://tame-plum-octopus-vest.cyclic.app/register', {
         // await fetch('https://ma-pwa-server.onrender.com/register', {
             method: 'POST',
