@@ -7,7 +7,7 @@ import TransactionCard from '../../components/TransactionCard';
 import { Transactions } from '../../interfaces/Transaction';
 import Banner from '../../components/Banner';
 import Shortcut from './components/Shortcut';
-import { getTransactions, sendNotification } from '../../services/api';
+import { getTransactions } from '../../services/api';
 
 export default function Home() {
 	const [transactions, setTransactions] = useState<Transactions[]>([]);
@@ -32,7 +32,7 @@ export default function Home() {
 				if (permission === 'granted') {
 					console.log("notifications granted")
 					// get service worker                     
-					navigator.serviceWorker.ready.then(async (sw) => {
+					navigator.serviceWorker.ready.then(async () => {
 						subscribeToPushMessages();
 					});
 				}
