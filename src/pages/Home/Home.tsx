@@ -72,8 +72,8 @@ export default function Home() {
 			console.log("Subscription created...", JSON.stringify(pushSubscription));
 			// Send subscription to server (you need to implement this part)
 			console.log('Registering subscription...')
-			await fetch('http://localhost:8082/register', {
-			// await fetch('https://tame-plum-octopus-vest.cyclic.app/register', {
+			// await fetch('http://localhost:8082/register', {
+			await fetch('https://tame-plum-octopus-vest.cyclic.app//register', {
 			// await fetch('https://ma-pwa-server.onrender.com/register', {
 				method: 'POST',
 				body: JSON.stringify(pushSubscription),
