@@ -51,6 +51,8 @@ export default function App() {
 			console.log('Message received. ', payload);
 			sw.showNotification(payload.notification?.title ?? "Title", {
 				body: payload.notification?.body ?? "Body",
+				icon: 'https://www.singaporeair.com/saar5/images/ppsclub-krisflyer/Krisplus/logo-w-outline-3x.png',
+				badge: 'https://www.singaporeair.com/saar5/images/ppsclub-krisflyer/Krisplus/logo-w-outline-3x.png'
 			});
 		});
 	}

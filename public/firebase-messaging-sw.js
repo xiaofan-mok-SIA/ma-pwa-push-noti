@@ -23,7 +23,8 @@ messaging.onBackgroundMessage((payload) => {
 	const notificationTitle = 'Background Message Title';
 	const notificationOptions = {
 		body: 'Background Message body.',
-		icon: '/thumb.png',
+		icon: 'https://www.singaporeair.com/saar5/images/ppsclub-krisflyer/Krisplus/logo-w-outline-3x.png',
+		badge: 'https://www.singaporeair.com/saar5/images/ppsclub-krisflyer/Krisplus/logo-w-outline-3x.png'
 	};
 
 	self.registration.showNotification(notificationTitle, notificationOptions);
