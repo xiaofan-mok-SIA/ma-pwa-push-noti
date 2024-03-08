@@ -8,6 +8,9 @@ self.addEventListener('push', function (event) {
 		event.waitUntil(
 			self.registration.showNotification('Kris+ MA Push Notification', {
 				body: payload,
+				icon: './logo192.png',
+				image: './assets/image.png',
+				badge: './assets/badge.png',
 			}),
 		);
 		// console.log('Push event!! ', event.data.text());

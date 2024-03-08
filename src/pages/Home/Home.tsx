@@ -7,7 +7,7 @@ import TransactionCard from '../../components/TransactionCard';
 import { Transactions } from '../../interfaces/Transaction';
 import Banner from '../../components/Banner';
 import Shortcut from './components/Shortcut';
-import { getTransactions } from '../../services/api';
+import { getTransactions, sendNotification } from '../../services/api';
 
 export default function Home() {
 	const [transactions, setTransactions] = useState<Transactions[]>([]);
@@ -16,28 +16,27 @@ export default function Home() {
 
 	const tabs = ['Payments', 'Redemptions'];
 
-	// const sendNotifications = () => {
-	// 	return async () => {
-	// 		await sendNotification();
-	// 	};
-	// };
+	const sendNotifications = () => {
+		return async () => {
+			await sendNotification();
+		};
+	};
 
 	const { VITE_APP_VAPID_PUBLIC_KEY } = import.meta.env;
 	const requestNotiPermission = () => {
 		return async () => {
-			console.log("Registering service worker...");
-			await navigator.serviceWorker.register("./service-worker.js")
-		
+			console.log('Registering service worker...');
+			await navigator.serviceWorker.register('./service-worker.js');
+
 			await window.Notification.requestPermission().then((permission) => {
 				if (permission === 'granted') {
-					console.log("notifications granted")
-					// get service worker                     
+					console.log('notifications granted');
+					// get service worker
 					navigator.serviceWorker.ready.then(async () => {
 						subscribeToPushMessages();
 					});
 				}
-		
-			})
+			});
 			//requesting permission using Notification API
 			// if ( /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
 			// 	window.Notification.requestPermission(() => {
@@ -48,7 +47,7 @@ export default function Home() {
 			// 	postPermission(permission as NotificationPermission);
 			// }
 		};
-	}
+	};
 
 	const subscribeToPushMessages = async () => {
 		const serviceWorkerRegistration = await navigator.serviceWorker.ready;
@@ -62,38 +61,36 @@ export default function Home() {
 		// }
 
 		try {
-			console.log("Subscribing user to push notifications");
+			console.log('Subscribing user to push notifications');
 			// Subscribe the user to push notifications
 			pushSubscription = await serviceWorkerRegistration.pushManager.subscribe({
 				userVisibleOnly: true,
-				applicationServerKey: urlBase64ToUint8Array(VITE_APP_VAPID_PUBLIC_KEY)
+				applicationServerKey: urlBase64ToUint8Array(VITE_APP_VAPID_PUBLIC_KEY),
 			});
 			// Send Push Notification
-			console.log("Subscription created...", JSON.stringify(pushSubscription));
+			console.log('Subscription created...', JSON.stringify(pushSubscription));
 			// Send subscription to server (you need to implement this part)
-			console.log('Registering subscription...')
+			console.log('Registering subscription...');
 			// await fetch('http://localhost:8082/register', {
-			await fetch('https://tame-plum-octopus-vest.cyclic.app//register', {
-			// await fetch('https://ma-pwa-server.onrender.com/register', {
+				await fetch('https://tame-plum-octopus-vest.cyclic.app/register', {
+				// await fetch('https://ma-pwa-server.onrender.com/register', {
 				method: 'POST',
 				body: JSON.stringify(pushSubscription),
 				headers: {
-					'Content-Type': 'application/json'
-				}
+					'Content-Type': 'application/json',
+				},
 			});
-			console.log("Subscription registered...");
+			console.log('Subscription registered...');
 			setSubscribed(true);
 		} catch (err) {
 			// The subscription wasn't successful.
-			console.log("Error", err);
+			console.log('Error', err);
 		}
-	}
+	};
 	// Utility function for browser interoperability
 	const urlBase64ToUint8Array = (base64String: string) => {
-		var padding = '='.repeat((4 - base64String.length % 4) % 4);
-		var base64 = (base64String + padding)
-			.replace(/\-/g, '+')
-			.replace(/_/g, '/');
+		var padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+		var base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
 
 		var rawData = window.atob(base64);
 		var outputArray = new Uint8Array(rawData.length);
@@ -102,7 +99,7 @@ export default function Home() {
 			outputArray[i] = rawData.charCodeAt(i);
 		}
 		return outputArray;
-	}
+	};
 
 	useEffect(() => {
 		const fetchTransactions = async () => {
@@ -121,9 +118,18 @@ export default function Home() {
 		<div>
 			<Banner />
 			<Shortcut />
-			{subscribed ? <div className='font-semibold p-2 bg-cyan rounded-lg text-white w-fit m-2'>Subscribed</div> : <button className='font-semibold p-2 bg-cyan rounded-lg text-white w-fit m-2' onClick={requestNotiPermission()}>Subscribe to Notifications</button>}
-			{/* <br/> */}
-			{/* <button className='font-semibold p-2 lg:mx-2 bg-cyan rounded-lg text-white w-fit my-2' onClick={sendNotifications()}>Send Notifications</button> */}
+			{subscribed ? (
+				<>
+					<button className='font-semibold p-2 bg-white border-2 border-cyan rounded-lg text-cyan w-fit m-2'>Subscribed</button>
+					<button className='font-semibold p-2 lg:mx-2 bg-cyan rounded-lg text-white w-fit' onClick={sendNotifications()}>
+						Send Notifications
+					</button>
+				</>
+			) : (
+				<button className='font-semibold p-2 bg-cyan rounded-lg text-white w-fit m-2' onClick={requestNotiPermission()}>
+					Subscribe to Notifications
+				</button>
+			)}
 			<div className='relative'>
 				<img src={backgroundMobile} alt='Background' className='sm:hidden absolute top-0 w-full z-[-1]' />
 				<img src={backgroundTablet} alt='Background' className='hidden sm:block lg:hidden absolute top-0 w-full' />
