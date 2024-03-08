@@ -3,14 +3,15 @@ self.addEventListener('activate', async () => {
 });
 
 self.addEventListener('push', function (event) {
+	console.log("received push notification")
 	if (event.data) {
 		const payload = event.data?.text() ?? 'no payload';
 		event.waitUntil(
 			self.registration.showNotification('Kris+ MA Push Notification', {
 				body: payload,
-				icon: './logo192.png',
-				image: './assets/image.png',
-				badge: './assets/badge.png',
+				icon: 'https://www.singaporeair.com/saar5/images/ppsclub-krisflyer/Krisplus/logo-w-outline-3x.png',
+				image: 'https://www.singaporeair.com/saar5/images/ppsclub-krisflyer/Krisplus/mainpage/multiplyrewards.jpg',
+				badge: 'https://firebasestorage.googleapis.com/v0/b/ma-pwa-test.appspot.com/o/kitty%20(1).png?alt=media&token=5e5316b1-ea0c-44e5-b63e-571382b49836',
 			}),
 		);
 		// console.log('Push event!! ', event.data.text());
